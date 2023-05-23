@@ -1,15 +1,15 @@
-use subxt::{OnlineClient, PolkadotConfig};
+use subxt::{OnlineClient, SubstrateConfig};
 
-#[subxt::subxt(runtime_metadata_path = "../artifacts/polkadot_metadata_full.scale")]
-pub mod polkadot {}
+#[subxt::subxt(runtime_metadata_path = "../artifacts/substrate.scale")]
+pub mod cord {}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Create a new API client, configured to talk to Polkadot nodes.
-    let api = OnlineClient::<PolkadotConfig>::new().await?;
+    let api = OnlineClient::<SubstrateConfig>::new().await?;
 
     // Build a storage query to iterate over account information.
-    let storage_query = polkadot::storage().system().account_root();
+    let storage_query = cord::storage().system().account_root();
 
     // Get back an iterator of results (here, we are fetching 10 items at
     // a time from the node, but we always iterate over oen at a time).

@@ -2,21 +2,21 @@ use futures::StreamExt;
 use sp_keyring::AccountKeyring;
 use subxt::{
     tx::{PairSigner, TxStatus},
-    OnlineClient, PolkadotConfig,
+    OnlineClient, SubstrateConfig,
 };
 
 // Generate an interface that we can use from the node's metadata.
-#[subxt::subxt(runtime_metadata_path = "../artifacts/polkadot_metadata_small.scale")]
-pub mod polkadot {}
+#[subxt::subxt(runtime_metadata_path = "../artifacts/substrate.scale")]
+pub mod cord {}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Create a new API client, configured to talk to Polkadot nodes.
-    let api = OnlineClient::<PolkadotConfig>::new().await?;
+    let api = OnlineClient::<SubstrateConfig>::new().await?;
 
     // Build a balance transfer extrinsic.
     let dest = AccountKeyring::Bob.to_account_id().into();
-    let balance_transfer_tx = polkadot::tx().balances().transfer(dest, 10_000);
+    let balance_transfer_tx = cord::tx().balances().transfer(dest, 10_000);
 
     // Submit the balance transfer extrinsic from Alice, and then monitor the
     // progress of it.
@@ -40,7 +40,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let events = in_block.wait_for_success().await?;
                 // We can look for events (this uses the static interface; we can also iterate
                 // over them and dynamically decode them):
-                let transfer_event = events.find_first::<polkadot::balances::events::Transfer>()?;
+                let transfer_event = events.find_first::<cord::balances::events::Transfer>()?;
 
                 if let Some(event) = transfer_event {
                     println!("Balance transfer success: {event:?}");
