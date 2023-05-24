@@ -3613,10 +3613,21 @@ dependencies = [
 name = "subxt-examples"
 version = "0.28.0"
 dependencies = [
+ "frame-metadata",
  "futures",
+ "heck",
  "hex",
+ "jsonrpsee",
+ "parity-scale-codec",
+ "proc-macro2",
+ "quote",
+ "scale-info",
  "sp-keyring",
  "subxt",
+ "subxt-codegen",
+ "subxt-metadata",
+ "syn 2.0.15",
+ "thiserror",
  "tokio",
 ]
 

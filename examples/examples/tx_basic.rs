@@ -2,7 +2,7 @@ use sp_keyring::AccountKeyring;
 use subxt::{tx::PairSigner, OnlineClient, SubstrateConfig};
 
 // Generate an interface that we can use from the node's metadata.
-#[subxt::subxt(runtime_metadata_path = "../artifacts/substrate.scale")]
+#[subxt::subxt(runtime_metadata_path = "../artifacts/cord_new.scale")]
 pub mod cord {}
 
 #[tokio::main]

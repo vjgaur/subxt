@@ -1,14 +1,14 @@
 use sp_keyring::AccountKeyring;
-use subxt::{OnlineClient, SubstrateConfig};
+use subxt::{OnlineClient, config::CordConfig};
 
 // Generate an interface that we can use from the node's metadata.
-#[subxt::subxt(runtime_metadata_path = "../artifacts/substrate.scale")]
+#[subxt::subxt(runtime_metadata_path = "../artifacts/cord_new.scale")]
 pub mod cord {}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Create a new API client, configured to talk to Polkadot nodes.
-    let api = OnlineClient::<SubstrateConfig>::new().await?;
+    let api = OnlineClient::<CordConfig>::new().await?;
 
     // Build a storage query to access account information.
     let account = AccountKeyring::Alice.to_account_id().into();
